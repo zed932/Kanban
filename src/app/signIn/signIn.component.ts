@@ -1,11 +1,11 @@
 import { Component} from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { Router } from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule, RouterOutlet],
+  imports: [FormsModule],
   templateUrl: './signIn.component.html',
   styleUrl: './signIn.component.css'
 })
