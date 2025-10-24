@@ -1,0 +1,65 @@
+<div class="home-container">
+  <div class="header">
+    <div class="user-info">
+      <h1>Добро пожаловать, {{userName}}!</h1>
+      <button class="logout-btn" (click)="logout()">Выйти</button>
+    </div>
+    <p>Организуйте свои задачи эффективно</p>
+  </div>
+
+  <div class="todo-card">
+    <div class="add-task-section">
+      <div class="form-group">
+        <input
+          type="text"
+          id="newTask"
+          placeholder="Добавьте новую задачу..."
+          [(ngModel)]="newTask"
+          (keyup.enter)="addTask()"
+        >
+        <button class="btn-add" (click)="addTask()">
+          <span>+</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="tasks-section">
+      <div class="tasks-header">
+        <h2>Мои задачи</h2>
+        <div class="tasks-stats">
+          <span class="total">Всего: {{tasks.length}}</span>
+          <span class="completed">Выполнено: {{getCompletedTasks()}}</span>
+        </div>
+      </div>
+
+      <div class="tasks-list">
+        <div
+          *ngFor="let task of tasks; let i = index"
+          class="task-item"
+          [class.completed]="task.completed"
+        >
+          <div class="task-content">
+            <input
+              type="checkbox"
+              [id]="'task-' + i"
+              [checked]="task.completed"
+              (change)="toggleTask(i)"
+              class="task-checkbox"
+            >
+            <label [for]="'task-' + i" class="task-text">{{task.text}}</label>
+          </div>
+          <button class="delete-btn" (click)="deleteTask(i)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M6 19C6 20.1 6.9 21 8 21H16C17.1 21 18 20.1 18 19V7H6V19ZM19 4H15.5L14.5 3H9.5L8.5 4H5V6H19V4Z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+
+        <div *ngIf="tasks.length === 0" class="empty-state">
+          <p>Пока нет задач. Добавьте первую задачу!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>
