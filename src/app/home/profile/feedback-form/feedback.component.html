@@ -1,0 +1,39 @@
+<form class ="feedback">
+  <!-- Поле ФИО -->
+  <div class = "name-field">
+    <label for="fullName">ФИО:</label>
+    <input type="text" id="fullName" name="fullName" placeholder="Введите имя" [(ngModel)]="name" required>
+  </div>
+
+  <!-- Поле логина -->
+  <div class = "login-field">
+    <label for="login">Логин:</label>
+    <input type="text" id="login" name="login" placeholder="Введите логин" [(ngModel)]="login" required>
+  </div>
+
+  <!-- Поле телефона -->
+  <div class = "phone-field">
+    <label for="phone">Телефон:</label>
+    <input type="tel" id="phone" name="phone" placeholder="Введите номер телефона" [(ngModel)]="telephoneNumber" required>
+  </div>
+
+  <!-- Выпадающий список удовлетворённости -->
+  <div class = "satisfaction-field">
+    <label for="satisfaction">Удовлетворённость:</label>
+    <select id="satisfaction" name="satisfaction" [(ngModel)]="satisfaction" required>
+      <option value="" selected disabled>Выберите вариант</option>
+      <option value="0">Удовлетворён</option>
+      <option value="2">Не удовлетворён</option>
+      <option value="1">Воздержусь от ответа</option>
+    </select>
+  </div>
+
+  <!-- Поле для свободного изложения -->
+  <div class = "user-text-field">
+    <label for="feedback">Что думаете о сервисе:</label>
+    <textarea id="feedback" name="feedback" rows="4" [(ngModel)]="user_text"></textarea>
+  </div>
+
+  <!-- Кнопка отправки -->
+  <button type="submit" class = "feedback-button">Отправить</button>
+</form>

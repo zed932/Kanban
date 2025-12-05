@@ -1,0 +1,93 @@
+/* Контейнер для всей страницы с досками */
+.board-container {
+  display: flex;
+  height: calc(100vh - 64px); /* Высота минус header (64px из предыдущих стилей) */
+  background-color: #fafafa;
+}
+
+/* Боковое меню */
+.side-menu {
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Кнопки бокового меню */
+.side-button {
+  background-color: #f5f5f5;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  color: #333333;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  text-align: left;
+}
+
+.side-button:hover {
+  background-color: #ebebeb;
+  border-color: #c8c8c8;
+}
+
+.side-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(153, 153, 153, 0.1);
+}
+
+/* Контейнер для досок */
+.desks-container {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: #fafafa;
+}
+
+/* Стили для скроллбара в контейнере досок */
+.desks-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.desks-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.desks-container::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.desks-container::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .board-container {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 64px);
+  }
+
+  .side-menu {
+    width: 100%;
+    flex-direction: row;
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    overflow-x: auto;
+    padding: 16px;
+    gap: 8px;
+  }
+
+  .side-button {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}

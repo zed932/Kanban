@@ -1,0 +1,114 @@
+/* Контейнер для формы обратной связи (аналогичный формам аутентификации) */
+.feedback {
+  width: 100%;
+  max-width: 500px; /* Немного шире, чем формы аутентификации */
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin: 0 auto; /* Центрирование формы */
+}
+
+/* Стили для всех полей формы */
+.feedback > div {
+  margin-bottom: 24px;
+}
+
+.feedback > div:last-of-type {
+  margin-bottom: 32px;
+}
+
+/* Стили для меток полей */
+.feedback label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+/* Общие стили для полей ввода, select и textarea */
+.feedback input,
+.feedback select,
+.feedback textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333333;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: sans-serif; /* Для единообразия шрифтов */
+}
+
+.feedback input:focus,
+.feedback select:focus,
+.feedback textarea:focus {
+  outline: none;
+  border-color: #999999;
+  box-shadow: 0 0 0 2px rgba(153, 153, 153, 0.1);
+}
+
+.feedback input::placeholder {
+  color: #999999;
+}
+
+/* Специфические стили для select */
+.feedback select {
+  appearance: none; /* Убираем стандартный стиль браузера */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px; /* Чтобы стрелка не накладывалась на текст */
+}
+
+/* Стили для текстовой области */
+.feedback textarea {
+  resize: vertical; /* Разрешаем изменение размера только по вертикали */
+  min-height: 100px;
+  line-height: 1.5;
+}
+
+/* Стили для кнопки отправки */
+.feedback-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.feedback-button:hover {
+  background-color: #444444;
+  border-color: #444444;
+}
+
+.feedback-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(153, 153, 153, 0.1);
+}
+
+/* Если форма будет использоваться на отдельной странице с центрированием */
+.container .feedback {
+  margin-top: 40px;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .feedback {
+    padding: 24px 20px;
+    max-width: 100%;
+  }
+
+  .feedback > div {
+    margin-bottom: 20px;
+  }
+}

@@ -1,24 +1,25 @@
 <div class="container">
   <div class="header">
     <h1>Добро пожаловать</h1>
-    <p>Войдите в свой аккаунт</p>
+    <p>Введите данные для регистрации</p>
   </div>
 
-  <form id="loginForm">
+  <form id="authForm">
+
     <div class="login-section">
       <div class="form-group">
-        <label for="login"></label>
+        <label for="login">Логин {{login}}</label>
         <input type="text" id="login" name = "login" placeholder="Введите логин" [(ngModel)] ="login" required>
       </div>
 
       <div class="form-group">
-        <label for="password"></label>
+        <label for="password">Пароль {{password}}</label>
         <input type="password" id="password" name="password" placeholder="Введите пароль" [(ngModel)]="password" required>
       </div>
     </div>
 
-    <button type="submit" class="btn" (click)="navigateToHomePage()">Войти</button>
-    <button type="button" class="btn" (click)="navigateToSignUpPage()">У вас нет аккканута? Зарегистрируйте его сейчас же!</button>
+    <button type="submit" class="btn" (click)="navigateToHomePage()">Зарегистрироваться</button>
+    <button type="button" class="btn" (click)="navigateToSignInPage()">У вас уже есть аккаунт? Войдите в него!</button>
   </form>
 </div>
 

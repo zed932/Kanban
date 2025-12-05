@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +13,18 @@ import {FormsModule} from '@angular/forms';
 )
 
 export class HomeComponent {
-  userName:string ="";
-  newTask: any = null;
-  tasks: any = [];
+  userName:string ="Пользователь";
 
-  addTask(){}
-  getCompletedTasks():any{}
-  toggleTask(task:any){}
-  deleteTask(task:any){}
+  constructor(private router: Router) {}
+
+
   logout():void{}
+
+  navigateToBoard(){
+    this.router.navigate(['home/board']);
+  }
+
+  navigateToProfile(){
+    this.router.navigate(['home/profile']);
+  }
 }

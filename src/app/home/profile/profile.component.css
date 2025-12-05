@@ -1,0 +1,52 @@
+/* Контейнер профиля */
+.profile-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 32px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Заголовок профиля */
+.profile-container h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* Кнопка профиля */
+.profile-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.profile-button:hover {
+  background-color: #444444;
+  border-color: #444444;
+}
+
+.profile-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(153, 153, 153, 0.1);
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+  .profile-container {
+    margin: 20px;
+    padding: 24px;
+  }
+}

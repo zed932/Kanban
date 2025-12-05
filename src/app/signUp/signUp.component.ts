@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import {FormsModule} from '@angular/forms';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-signUp',
   standalone: true,
   imports: [FormsModule],
-  templateUrl: './signIn.component.html',
-  styleUrl: './signIn.component.css'
+  templateUrl: './signUp.component.html',
+  styleUrl: './signUp.component.css'
 })
-export class SignInComponent {
+export class SignUpComponent {
+  name: string ="";
   login: string ="";
   password: string ="";
 
@@ -20,7 +21,7 @@ export class SignInComponent {
     this.router.navigate(['home']);
   }
 
-  navigateToSignUpPage(){
-    this.router.navigate(['signUp']);
+  navigateToSignInPage() {
+    this.router.navigate(['signIn']);
   }
 }
