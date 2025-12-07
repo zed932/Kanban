@@ -10,7 +10,7 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './signUp.component.css'
 })
 export class SignUpComponent {
-  name: string ="";
+  email: string ="";
   login: string ="";
   password: string ="";
 

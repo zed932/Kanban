@@ -1,97 +1,4 @@
-/* Общие стили для форм аутентификации */
-#loginForm, #authForm {
-  width: 100%;
-  max-width: 400px;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 32px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* Стили для секции логина/регистрации */
-.login-section {
-  margin-bottom: 32px;
-}
-
-/* Стили для группы формы */
-.form-group {
-  margin-bottom: 24px;
-}
-
-.form-group:last-child {
-  margin-bottom: 0;
-}
-
-.form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: #333333;
-  margin-bottom: 8px;
-}
-
-/* Стили для полей ввода */
-.form-group input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #333333;
-  background-color: #ffffff;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: #999999;
-  box-shadow: 0 0 0 2px rgba(153, 153, 153, 0.1);
-}
-
-.form-group input::placeholder {
-  color: #999999;
-}
-
-/* Общие стили для кнопок */
-.btn {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
-  text-align: center;
-}
-
-/* Стили для основной кнопки отправки формы */
-.btn[type="submit"] {
-  background-color: #333333;
-  color: #ffffff;
-  border-color: #333333;
-  margin-bottom: 12px;
-}
-
-.btn[type="submit"]:hover {
-  background-color: #444444;
-  border-color: #444444;
-}
-
-/* Стили для дополнительных кнопок (переход на другую форму) */
-.btn[type="button"] {
-  background-color: #f5f5f5;
-  color: #333333;
-  border-color: #dcdcdc;
-}
-
-.btn[type="button"]:hover {
-  background-color: #ebebeb;
-  border-color: #c8c8c8;
-}
-
-/* Стили для страницы регистрации */
+/* Контейнер и заголовок - те же стили, что и в форме регистрации */
 .container {
   display: flex;
   flex-direction: column;
@@ -121,6 +28,122 @@
   line-height: 1.5;
 }
 
+/* Стили для формы входа */
+#loginForm {
+  width: 100%;
+  max-width: 400px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Скрытие пустых меток в форме входа */
+#loginForm .form-group label:empty {
+  display: none;
+}
+
+.login-section {
+  margin-bottom: 32px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333333;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #999999;
+  box-shadow: 0 0 0 2px rgba(153, 153, 153, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #999999;
+}
+
+/* Стили для невалидных полей */
+.form-group input.ng-invalid.ng-touched {
+  border-color: #d32f2f;
+}
+
+/* Стили для сообщений об ошибках */
+.alert {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Стили для кнопок */
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  text-align: center;
+}
+
+/* Активная кнопка входа */
+.btn[type="submit"]:not([disabled]) {
+  background-color: #333333;
+  color: #ffffff;
+  border-color: #333333;
+  margin-bottom: 12px;
+}
+
+.btn[type="submit"]:not([disabled]):hover {
+  background-color: #444444;
+  border-color: #444444;
+}
+
+/* Отключенная кнопка входа */
+.btn[type="submit"][disabled] {
+  background-color: #e0e0e0;
+  color: #999999;
+  border-color: #dcdcdc;
+  margin-bottom: 12px;
+  cursor: not-allowed;
+}
+
+/* Кнопка перехода к регистрации */
+.btn[type="button"] {
+  background-color: #f5f5f5;
+  color: #333333;
+  border-color: #dcdcdc;
+}
+
+.btn[type="button"]:hover {
+  background-color: #ebebeb;
+  border-color: #c8c8c8;
+}
+
 /* Адаптивность для мобильных устройств */
 @media (max-width: 480px) {
   .header {
@@ -131,7 +154,7 @@
     font-size: 28px;
   }
 
-  #authForm {
+  #loginForm {
     padding: 24px 20px;
   }
 }

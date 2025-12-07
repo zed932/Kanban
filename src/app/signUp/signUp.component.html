@@ -6,19 +6,34 @@
 
   <form id="authForm">
 
-    <div class="login-section">
+    <div class="form">
       <div class="form-group">
-        <label for="login">Логин {{login}}</label>
-        <input type="text" id="login" name = "login" placeholder="Введите логин" [(ngModel)] ="login" required>
+        <label for="login">Логин</label>
+        <input type="text" id="login" name = "login" placeholder="Введите логин" [(ngModel)] ="login" #formLogin="ngModel" required/>
+        <div [hidden]="formLogin.valid || formLogin.untouched" class = "alert">
+          Логин не введён
+        </div>
       </div>
 
       <div class="form-group">
-        <label for="password">Пароль {{password}}</label>
-        <input type="password" id="password" name="password" placeholder="Введите пароль" [(ngModel)]="password" required>
+        <label for="email">Электронная почта</label>
+        <input type="text" id="email" name = "email" placeholder="Введите электронную почту" [(ngModel)] ="email" #formEmail="ngModel" required
+               pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" />
+        <div [hidden]="formEmail.valid || formEmail.untouched" class = "alert">
+        Электронная почта не введена
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" placeholder="Введите пароль" [(ngModel)]="password" #formPassword="ngModel" required/>
+        <div [hidden] = "formPassword.valid || formPassword.untouched" class = "alert">
+          Пароль не введён
+        </div>
       </div>
     </div>
 
-    <button type="submit" class="btn" (click)="navigateToHomePage()">Зарегистрироваться</button>
+    <button [disabled]="formLogin.invalid || formEmail.invalid || formPassword.invalid" type="submit" class="btn" (click)="navigateToHomePage()">Зарегистрироваться</button>
     <button type="button" class="btn" (click)="navigateToSignInPage()">У вас уже есть аккаунт? Войдите в него!</button>
   </form>
 </div>

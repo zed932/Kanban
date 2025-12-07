@@ -8,16 +8,22 @@
     <div class="login-section">
       <div class="form-group">
         <label for="login"></label>
-        <input type="text" id="login" name = "login" placeholder="Введите логин" [(ngModel)] ="login" required>
+        <input type="text" id="login" name = "login" placeholder="Введите логин" [(ngModel)] ="login" #formLogin="ngModel" required>
+        <div [hidden]="formLogin.valid || formLogin.untouched" class = "alert">
+          Введите логин
+        </div>
       </div>
 
       <div class="form-group">
         <label for="password"></label>
-        <input type="password" id="password" name="password" placeholder="Введите пароль" [(ngModel)]="password" required>
+        <input type="password" id="password" name="password" placeholder="Введите пароль" [(ngModel)]="password" #formPassword="ngModel" required>
+        <div [hidden]="formPassword.valid || formPassword.untouched" class = "alert">
+          Введите пароль
+        </div>
       </div>
     </div>
 
-    <button type="submit" class="btn" (click)="navigateToHomePage()">Войти</button>
+    <button [disabled]="formLogin.invalid || formPassword.invalid" type="submit" class="btn" (click)="navigateToHomePage()">Войти</button>
     <button type="button" class="btn" (click)="navigateToSignUpPage()">У вас нет аккканута? Зарегистрируйте его сейчас же!</button>
   </form>
 </div>
