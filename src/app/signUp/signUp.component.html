@@ -4,36 +4,41 @@
     <p>Введите данные для регистрации</p>
   </div>
 
-  <form id="authForm">
+  <form id="authForm" [formGroup]="signUpForm" (submit)="navigateToHomePage()" >
 
     <div class="form">
       <div class="form-group">
         <label for="login">Логин</label>
-        <input type="text" id="login" name = "login" placeholder="Введите логин" [(ngModel)] ="login" #formLogin="ngModel" required/>
-        <div [hidden]="formLogin.valid || formLogin.untouched" class = "alert">
+        <input type="text" id="login" name = "login" placeholder="Введите логин" formControlName="login"/>
+        @if(signUpForm.controls["login"].invalid && signUpForm.controls["login"].touched){
+        <div class = "alert">
           Логин не введён
         </div>
+        }
       </div>
 
       <div class="form-group">
         <label for="email">Электронная почта</label>
-        <input type="text" id="email" name = "email" placeholder="Введите электронную почту" [(ngModel)] ="email" #formEmail="ngModel" required
-               pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" />
-        <div [hidden]="formEmail.valid || formEmail.untouched" class = "alert">
-        Электронная почта не введена
-        </div>
+        <input type="email" id="email" name = "email" placeholder="Введите электронную почту" formControlName="email"/>
+        @if (signUpForm.controls["email"].invalid && signUpForm.controls["email"].touched){
+          <div class = "alert">
+          Электронная почта не введена
+          </div>
+        }
       </div>
 
       <div class="form-group">
         <label for="password">Пароль</label>
-        <input type="password" id="password" name="password" placeholder="Введите пароль" [(ngModel)]="password" #formPassword="ngModel" required/>
-        <div [hidden] = "formPassword.valid || formPassword.untouched" class = "alert">
-          Пароль не введён
-        </div>
+        <input type="password" id="password" name="password" placeholder="Введите пароль" formControlName="password"/>
+         @if(signUpForm.controls["password"].invalid && signUpForm.controls["password"].touched){
+          <div class = "alert">
+            Пароль не введён
+          </div>
+         }
       </div>
     </div>
 
-    <button [disabled]="formLogin.invalid || formEmail.invalid || formPassword.invalid" type="submit" class="btn" (click)="navigateToHomePage()">Зарегистрироваться</button>
+    <button [disabled]="!signUpForm.valid" type="submit" class="btn">Зарегистрироваться</button>
     <button type="button" class="btn" (click)="navigateToSignInPage()">У вас уже есть аккаунт? Войдите в него!</button>
   </form>
 </div>

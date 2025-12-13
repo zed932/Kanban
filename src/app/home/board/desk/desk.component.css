@@ -1,0 +1,144 @@
+/* Контейнер доски */
+.desk-container {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.desk-container:hover {
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Заголовок доски */
+.desk-container h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Контейнер для кнопок управления доской */
+.desk-container > button {
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.625rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* Стили для кнопки удаления доски */
+.delete-desk {
+  background-color: #f9f9f9;
+  color: #666666;
+  border: 1px solid #e8e8e8;
+}
+
+.delete-desk:hover {
+  background-color: #f0f0f0;
+  color: #444444;
+  border-color: #d8d8d8;
+}
+
+.delete-desk:active {
+  background-color: #e6e6e6;
+}
+
+/* Стили для кнопки редактирования доски */
+.edit-desk {
+  background-color: #f5f5f5;
+  color: #555555;
+  border: 1px solid #e8e8e8;
+}
+
+.edit-desk:hover {
+  background-color: #e8e8e8;
+  color: #333333;
+  border-color: #d8d8d8;
+}
+
+.edit-desk:active {
+  background-color: #dbdbdb;
+}
+
+/* Стили для кнопки добавления задачи */
+.add-task-button {
+  background-color: #f5f5f5;
+  color: #555555;
+  border: 1px solid #e8e8e8;
+}
+
+.add-task-button:hover {
+  background-color: #e8e8e8;
+  color: #333333;
+  border-color: #d8d8d8;
+}
+
+.add-task-button:active {
+  background-color: #dbdbdb;
+}
+
+/* Контейнер для списка задач */
+.tasks-container {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f0f0f0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+/* Стили для компонента задачи внутри контейнера */
+.tasks-container task {
+  display: block;
+}
+
+/* Адаптивность для маленьких экранов */
+@media (max-width: 768px) {
+  .desk-container {
+    padding: 1.25rem;
+  }
+
+  .desk-container > button {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .desk-container > button:last-child {
+    margin-bottom: 0;
+  }
+
+  .tasks-container {
+    grid-template-columns: 1fr;
+    gap: 0.875rem;
+  }
+}
+
+/* Адаптивность для очень маленьких экранов */
+@media (max-width: 480px) {
+  .desk-container {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .desk-container h3 {
+    font-size: 1.25rem;
+  }
+
+  .tasks-container {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+  }
+}

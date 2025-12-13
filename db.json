@@ -1,18 +1,39 @@
-{ "users":  [
-  {
-    "name": "Иван",
-    "email": "example1@mail.ru",
-    "password": "qwerty123"
-  },
-  {
-    "name": "Владимир",
-    "email": "example2@mail.ru",
-    "password": "12345678"
-  },
-  {
-    "name": "Петр",
-    "email": "example3@mail.ru",
-    "password": "asdfgh123"
-  }
-]
+{
+  "desksList": [
+    {
+      "name" : "FirstDesk",
+      "tasksList" : [
+        {
+          "id" : 0,
+          "name" : "Купить молоко",
+          "description" : "Необходимо купить молока для матушки",
+          "isCompleted" : false
+        },
+        {
+          "id" : 1,
+          "name" : "Сходить в школу",
+          "description" : "Сегодня я должен пойти в школу и получить пятерку",
+          "isCompleted" : false
+        }
+      ]
+    },
+    {
+      "name" : "SecondDesk",
+      "tasksList" : [
+        {
+          "id" : 0,
+          "name" : "Купить пшеницу",
+          "description" : "На рынке взять самую дешёвую",
+          "isCompleted" : false
+        },
+        {
+          "id" : 1,
+          "name" : "Сходить в аптеку",
+          "description" : "Нужны антибиотики",
+          "isCompleted" : false
+        }
+      ]
+    }
+  ]
+
 }

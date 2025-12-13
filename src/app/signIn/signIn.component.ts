@@ -1,17 +1,23 @@
-import { Component} from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { Router } from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
+import { Auth } from '../services/auth';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './signIn.component.html',
   styleUrl: './signIn.component.css'
 })
 export class SignInComponent {
-  login: string ="";
-  password: string ="";
+
+  signInForm = new FormGroup({
+    login: new FormControl("", [Validators.required]),
+    password: new FormControl("", [Validators.required])
+  })
+
+  authService: Auth = inject(Auth);
 
   constructor(private router: Router) {
   }
@@ -22,5 +28,12 @@ export class SignInComponent {
 
   navigateToSignUpPage(){
     this.router.navigate(['signUp']);
+  }
+
+  signInApplication(){
+    this.authService.signInApplication(
+      this.signInForm.value.login ?? "",
+      this.signInForm.value.password ?? ""
+    )
   }
 }

@@ -4,26 +4,30 @@
     <p>Войдите в свой аккаунт</p>
   </div>
 
-  <form id="loginForm">
+  <form id="loginForm" [formGroup]="signInForm" (submit)="signInApplication()" >
     <div class="login-section">
       <div class="form-group">
         <label for="login"></label>
-        <input type="text" id="login" name = "login" placeholder="Введите логин" [(ngModel)] ="login" #formLogin="ngModel" required>
-        <div [hidden]="formLogin.valid || formLogin.untouched" class = "alert">
-          Введите логин
-        </div>
+        <input type="text" id="login" name = "login" placeholder="Введите логин" formControlName="login">
+        @if(signInForm.controls["login"].invalid && signInForm.controls["login"].touched){
+          <div class = "alert">
+            Введите логин
+          </div>
+        }
       </div>
 
       <div class="form-group">
         <label for="password"></label>
-        <input type="password" id="password" name="password" placeholder="Введите пароль" [(ngModel)]="password" #formPassword="ngModel" required>
-        <div [hidden]="formPassword.valid || formPassword.untouched" class = "alert">
-          Введите пароль
-        </div>
+        <input type="password" id="password" name="password" placeholder="Введите пароль" formControlName="password">
+        @if(signInForm.controls["password"].invalid && signInForm.controls["password"].touched){
+          <div class = "alert">
+            Введите пароль
+          </div>
+        }
       </div>
     </div>
 
-    <button [disabled]="formLogin.invalid || formPassword.invalid" type="submit" class="btn" (click)="navigateToHomePage()">Войти</button>
+    <button [disabled]="!signInForm.valid" type="submit" class="btn">Войти</button>
     <button type="button" class="btn" (click)="navigateToSignUpPage()">У вас нет аккканута? Зарегистрируйте его сейчас же!</button>
   </form>
 </div>

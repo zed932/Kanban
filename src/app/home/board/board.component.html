@@ -1,12 +1,12 @@
 <div class = "board-container">
-  <div class = "side-menu">
-    <button type="button" class = "side-button">Создать доску</button>
-    <button type="button" class = "side-button">Редактировать доску</button>
-
+  <div class = "create-button">
+    <button type="button" class = "side-button" title="Добавить доску" >+</button>
   </div>
 
   <div class = "desks-container">
-
+    @for (desk of desksList; track desk.name ){
+      <desk [name]="desk.name" [tasksList]="desk.tasksList" ></desk>
+    }
   </div>
 
 </div>

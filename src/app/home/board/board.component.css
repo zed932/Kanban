@@ -1,93 +1,138 @@
-/* Контейнер для всей страницы с досками */
+/* Основной контейнер доски */
 .board-container {
-  display: flex;
-  height: calc(100vh - 64px); /* Высота минус header (64px из предыдущих стилей) */
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 80px); /* Учитываем высоту шапки */
+  padding: 0;
   background-color: #fafafa;
 }
 
-/* Боковое меню */
-.side-menu {
-  width: 250px;
-  background-color: #ffffff;
-  border-right: 1px solid #e0e0e0;
-  padding: 20px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+/* Контейнер для кнопки создания доски */
+.create-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 100;
 }
 
-/* Кнопки бокового меню */
+/* Кнопка создания доски */
 .side-button {
-  background-color: #f5f5f5;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  color: #333333;
-  padding: 12px 16px;
-  font-size: 14px;
-  font-weight: 500;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #555555;
+  font-size: 1.5rem;
+  font-weight: 300;
+  border: 1px solid #e0e0e0;
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
-  text-align: left;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .side-button:hover {
-  background-color: #ebebeb;
-  border-color: #c8c8c8;
+  background-color: #f8f8f8;
+  color: #333333;
+  border-color: #d0d0d0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  transform: scale(1.05);
 }
 
-.side-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(153, 153, 153, 0.1);
+.side-button:active {
+  background-color: #f0f0f0;
+  transform: scale(0.98);
 }
 
-/* Контейнер для досок */
+/* Контейнер для всех досок */
 .desks-container {
-  flex: 1;
-  padding: 24px;
-  overflow-y: auto;
-  background-color: #fafafa;
+  width: 100%;
+  padding: 2rem;
+  padding-top: 4rem; /* Отступ для кнопки создания доски */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  box-sizing: border-box;
 }
 
-/* Стили для скроллбара в контейнере досок */
-.desks-container::-webkit-scrollbar {
-  width: 8px;
+/* Стили для компонента доски внутри контейнера */
+.desks-container desk {
+  display: block;
 }
 
-.desks-container::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+  .board-container {
+    min-height: calc(100vh - 70px);
+  }
 
-.desks-container::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
-}
-
-.desks-container::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+  .desks-container {
+    padding: 1.5rem;
+    padding-top: 3.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
 }
 
 /* Адаптивность для мобильных устройств */
 @media (max-width: 768px) {
   .board-container {
-    flex-direction: column;
-    height: auto;
-    min-height: calc(100vh - 64px);
+    min-height: calc(100vh - 60px);
   }
 
-  .side-menu {
-    width: 100%;
-    flex-direction: row;
-    border-right: none;
-    border-bottom: 1px solid #e0e0e0;
-    overflow-x: auto;
-    padding: 16px;
-    gap: 8px;
+  .create-button {
+    position: relative;
+    top: auto;
+    right: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 1rem;
+  }
+
+  .desks-container {
+    padding: 1rem;
+    padding-top: 0;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Адаптивность для очень маленьких экранов */
+@media (max-width: 480px) {
+  .board-container {
+    min-height: calc(100vh - 50px);
+  }
+
+  .desks-container {
+    padding: 0.75rem;
+    gap: 1rem;
   }
 
   .side-button {
-    white-space: nowrap;
-    flex-shrink: 0;
+    width: 45px;
+    height: 45px;
+    font-size: 1.25rem;
   }
+}
+
+/* Пустое состояние - когда нет досок */
+.desks-container:empty {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.desks-container:empty::after {
+  content: "Нет созданных досок";
+  color: #888888;
+  font-size: 1rem;
+  font-style: italic;
 }

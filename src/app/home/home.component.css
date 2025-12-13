@@ -22,7 +22,9 @@ html, body {
   border-bottom: 1px solid #e0e0e0;
   padding: 0 24px;
   height: 64px;
+  min-height: 64px; /* Гарантирует минимальную высоту */
   box-sizing: border-box;
+  flex-shrink: 0; /* Предотвращает сжатие в flex-контейнере */
 }
 
 /* Название приложения слева */
@@ -31,6 +33,7 @@ html, body {
   font-size: 20px;
   font-weight: 600;
   color: #333333;
+  line-height: 1; /* Убираем лишнюю высоту от line-height */
 }
 
 /* Общие стили для кнопок */
@@ -44,6 +47,13 @@ html, body {
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s, border-color 0.2s;
+  height: 36px; /* Фиксированная высота кнопок */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  line-height: 1;
+  white-space: nowrap; /* Предотвращает перенос текста */
 }
 
 /* Эффект при наведении на кнопку */
@@ -61,4 +71,60 @@ html, body {
 
 .header-button:first-of-type:hover {
   background-color: #444444;
+}
+
+/* Гарантия, что внутренние элементы не превышают высоту шапки */
+.header > * {
+  max-height: 100%;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    min-height: 56px;
+    padding: 0 16px;
+    flex-wrap: wrap; /* Разрешаем перенос кнопок */
+    justify-content: space-between;
+  }
+
+  #app-name {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  .header-button {
+    margin-left: 8px;
+    margin-bottom: 8px;
+    height: 32px;
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  /* Убираем отступ у первой кнопки на мобильных */
+  .header-button:first-child {
+    margin-left: 0;
+  }
+}
+
+/* Адаптивность для очень маленьких экранов */
+@media (max-width: 480px) {
+  .header {
+    min-height: 52px;
+    padding: 0 12px;
+  }
+
+  #app-name {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .header-button {
+    font-size: 12px;
+    padding: 5px 10px;
+    height: 30px;
+    margin-left: 6px;
+  }
 }
