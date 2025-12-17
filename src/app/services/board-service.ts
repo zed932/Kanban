@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import {Desk} from "../home/board/desk/desk"
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { map } from "rxjs/operators";
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,15 @@ import { map } from "rxjs/operators";
 export class BoardService {
   url = "http://localhost:3000"
 
+  private desksSignal = signal<Desk[]>([]);
+  readonly desks = this.desksSignal.asReadonly();
+
   constructor(private http: HttpClient) { }
 
   getDesksList() : Observable<Desk[]> {
     return this.http.get(this.url).pipe(map((data:any) => {
       let desksList : Desk[] = data['desksList'];
+      this.desksSignal.set(desksList);
       return desksList;
       })
     )

@@ -13,7 +13,6 @@ import {BoardService} from '../../services/board-service';
 })
 
 export class BoardComponent {
-  desksList: Desk[] = [];
 
   boardService : BoardService = inject(BoardService);
 
@@ -21,7 +20,11 @@ export class BoardComponent {
   }
 
   ngOnInit() {
-    this.boardService.getDesksList().subscribe({next: data => {this.desksList = data}});
+    this.boardService.getDesksList().subscribe();
+  }
+
+  get desksList() {
+    return this.boardService.desks();
   }
 
 }
