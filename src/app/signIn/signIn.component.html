@@ -4,6 +4,13 @@
     <p>Войдите в свой аккаунт</p>
   </div>
 
+  <!-- Добавляем отображение ошибок -->
+  @if (errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+  }
+
   <form id="loginForm" [formGroup]="signInForm" (submit)="signInApplication()" >
     <div class="login-section">
       <div class="form-group">
@@ -27,8 +34,14 @@
       </div>
     </div>
 
-    <button [disabled]="!signInForm.valid" type="submit" class="btn">Войти</button>
-    <button type="button" class="btn" (click)="navigateToSignUpPage()">У вас нет аккканута? Зарегистрируйте его сейчас же!</button>
+    <!-- Добавляем индикатор загрузки -->
+    @if (isLoading) {
+      <div class="loading">Загрузка...</div>
+    }
+
+    <button [disabled]="!signInForm.valid || isLoading" type="submit" class="btn">
+      {{ isLoading ? 'Вход...' : 'Войти' }}
+    </button>
+    <button type="button" class="btn" (click)="navigateToSignUpPage()">У вас нет аккаунта? Зарегистрируйте его сейчас же!</button>
   </form>
 </div>
-

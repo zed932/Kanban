@@ -4,6 +4,19 @@
     <p>Введите данные для регистрации</p>
   </div>
 
+  <!-- Отображение сообщений об ошибке и успехе -->
+  @if (errorMessage) {
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
+  }
+
+  @if (successMessage) {
+    <div class="success-message">
+      {{ successMessage }}
+    </div>
+  }
+
   <form id="authForm" [formGroup]="signUpForm" (submit)="navigateToHomePage()" >
 
     <div class="form">
@@ -11,9 +24,9 @@
         <label for="login">Логин</label>
         <input type="text" id="login" name = "login" placeholder="Введите логин" formControlName="login"/>
         @if(signUpForm.controls["login"].invalid && signUpForm.controls["login"].touched){
-        <div class = "alert">
-          Логин не введён
-        </div>
+          <div class = "alert">
+            Логин не введён
+          </div>
         }
       </div>
 
@@ -22,7 +35,7 @@
         <input type="email" id="email" name = "email" placeholder="Введите электронную почту" formControlName="email"/>
         @if (signUpForm.controls["email"].invalid && signUpForm.controls["email"].touched){
           <div class = "alert">
-          Электронная почта не введена
+            Электронная почта не введена
           </div>
         }
       </div>
@@ -30,16 +43,39 @@
       <div class="form-group">
         <label for="password">Пароль</label>
         <input type="password" id="password" name="password" placeholder="Введите пароль" formControlName="password"/>
-         @if(signUpForm.controls["password"].invalid && signUpForm.controls["password"].touched){
+        @if(signUpForm.controls["password"].invalid && signUpForm.controls["password"].touched){
           <div class = "alert">
-            Пароль не введён
+            @if (signUpForm.controls["password"].hasError('required')) {
+              Пароль не введён
+            }
+            @if (signUpForm.controls["password"].hasError('minlength')) {
+              Пароль должен быть не менее 6 символов
+            }
           </div>
-         }
+        }
+      </div>
+
+      <!-- Добавляем поле для подтверждения пароля -->
+      <div class="form-group">
+        <label for="confirmPassword">Подтвердите пароль</label>
+        <input type="password" id="confirmPassword" name="confirmPassword"
+               placeholder="Повторите пароль" formControlName="confirmPassword"/>
+        @if(signUpForm.controls["confirmPassword"].invalid && signUpForm.controls["confirmPassword"].touched){
+          <div class = "alert">
+            Подтверждение пароля обязательно
+          </div>
+        }
       </div>
     </div>
 
-    <button [disabled]="!signUpForm.valid" type="submit" class="btn">Зарегистрироваться</button>
+    <!-- Добавляем индикатор загрузки -->
+    @if (isLoading) {
+      <div class="loading">Загрузка...</div>
+    }
+
+    <button [disabled]="!signUpForm.valid || isLoading" type="submit" class="btn">
+      {{ isLoading ? 'Регистрация...' : 'Зарегистрироваться' }}
+    </button>
     <button type="button" class="btn" (click)="navigateToSignInPage()">У вас уже есть аккаунт? Войдите в него!</button>
   </form>
 </div>
-

@@ -1,4 +1,12 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "email": "user@example.com",
+      "login": "user",
+      "password": "password123"
+    }
+  ],
   "desksList": [
     {
       "name" : "FirstDesk",
