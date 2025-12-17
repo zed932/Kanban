@@ -1,7 +1,8 @@
-import {Component, inject} from "@angular/core";
+import {Component, inject, OnInit} from "@angular/core";
 import {deskComponent} from './desk/desk.component';
 import {Desk} from './desk/desk';
 import {BoardService} from '../../services/board-service';
+
 
 @Component({
   selector: "app-board",
@@ -17,9 +18,10 @@ export class BoardComponent {
   boardService : BoardService = inject(BoardService);
 
   constructor() {
-    this.boardService.getDesksList().then((desksList: Desk[]) => {
-      this.desksList = desksList;
-    })
+  }
+
+  ngOnInit() {
+    this.boardService.getDesksList().subscribe({next: data => {this.desksList = data}});
   }
 
 }
