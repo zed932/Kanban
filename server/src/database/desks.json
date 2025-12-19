@@ -1,24 +1,36 @@
 [
   {
-    "id": 1,
-    "name": "FirstDesk",
+    "name": "Мои актуальные",
     "userId": 1,
     "tasksList": [
       {
-        "id": 1,
-        "name": "Купить молоко",
-        "description": "Необходимо купить молока для матушки",
-        "isCompleted": false
+        "name": "Купить хлеб",
+        "description": "",
+        "isCompleted": false,
+        "id": 1
+      },
+      {
+        "name": "Сходить на пары",
+        "description": "",
+        "isCompleted": true,
+        "id": 2
+      },
+      {
+        "name": "Сдать курсач",
+        "description": "",
+        "isCompleted": false,
+        "id": 3
       }
-    ]
+    ],
+    "id": 1
   },
   {
-    "name": "123",
+    "name": "Новая доска",
     "userId": 1,
     "tasksList": [
       {
-        "name": "123",
-        "description": "123",
+        "name": "Еще задача",
+        "description": "",
         "isCompleted": false,
         "id": 1
       }
