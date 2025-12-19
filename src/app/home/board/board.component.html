@@ -1,12 +1,34 @@
-<div class = "board-container">
-  <div class = "create-button">
-    <button type="button" class = "side-button" title="Добавить доску" >+</button>
+<div class="board-container">
+  <div class="header">
+    <h2>Мои доски</h2>
+    <button type="button" class="create-button" (click)="startCreatingDesk()" title="Добавить доску">
+      + Новая доска
+    </button>
   </div>
 
-  <div class = "desks-container">
-    @for (desk of desksList; track desk.name ){
-      <desk [name]="desk.name" [tasksList]="desk.tasksList" ></desk>
+  @if (isCreatingDesk) {
+    <div class="create-desk-form">
+      <input
+        type="text"
+        [(ngModel)]="newDeskName"
+        placeholder="Название доски"
+        (keyup.enter)="createDesk()"
+        class="desk-input"
+      />
+      <div class="form-actions">
+        <button type="button" (click)="createDesk()" class="save-button">Создать</button>
+        <button type="button" (click)="cancelCreatingDesk()" class="cancel-button">Отмена</button>
+      </div>
+    </div>
+  }
+
+  <div class="desks-container">
+    @for (desk of desksList; track desk.id) {
+      <desk
+        [desk]="desk"
+        (deskDeleted)="loadDesks()"
+        (deskUpdated)="loadDesks()"
+      ></desk>
     }
   </div>
-
 </div>

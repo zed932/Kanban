@@ -4,51 +4,62 @@ import { Observable, tap } from 'rxjs';
 import { ISignIn } from '../signIn/ISignIn';
 import { ISignUp } from '../signUp/ISignUp';
 
+export interface AuthResponse {
+  token: string;
+  user: {
+    id: number;
+    email: string;
+    login: string;
+  };
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class Auth {
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'http://localhost:3000/api';
 
-  // 1. Сигнал для состояния авторизации
+  // Сигналы
   private isAuthenticatedSignal = signal<boolean>(false);
   readonly isAuthenticated = this.isAuthenticatedSignal.asReadonly();
 
-  // 2. Сигнал для данных пользователя
-  private userSignal = signal<{login: string, email: string} | null>(null);
+  private userSignal = signal<{id: number, login: string, email: string} | null>(null);
   readonly user = this.userSignal.asReadonly();
 
   constructor() {
-    // 3. Проверяем localStorage при инициализации
+    this.checkAuth();
+  }
+
+  private checkAuth(): void {
     const token = localStorage.getItem('auth_token');
     if (token) {
+      // Можно добавить запрос на проверку токена
       this.isAuthenticatedSignal.set(true);
-      // Можно загрузить данные пользователя
     }
   }
 
-  signInApplication(login: string, password: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, { login, password }).pipe(
-      tap((response: any) => {
-        if (response.token) {
-          localStorage.setItem('auth_token', response.token);
-          this.isAuthenticatedSignal.set(true);
-          this.userSignal.set({ login: response.login, email: response.email });
-        }
+  signInApplication(login: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/signin`, { login, password }).pipe(
+      tap((response) => {
+        localStorage.setItem('auth_token', response.token);
+        this.isAuthenticatedSignal.set(true);
+        this.userSignal.set(response.user);
       })
     );
   }
 
-  // 4. Добавим метод для регистрации
-  signUpApplication(userData: ISignUp): Observable<any> {
-    return this.http.post(`${this.baseUrl}/users`, userData);
+  signUpApplication(userData: ISignUp): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/signup`, userData);
   }
 
-  // 5. Метод для выхода
   logout(): void {
     localStorage.removeItem('auth_token');
     this.isAuthenticatedSignal.set(false);
     this.userSignal.set(null);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('auth_token');
   }
 }

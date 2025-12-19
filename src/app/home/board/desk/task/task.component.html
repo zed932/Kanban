@@ -1,6 +1,44 @@
-<div class = "task">
-  <h4 class = "task-name">{{task.name}}</h4>
-  <p class = "task-description">{{task.description}}</p>
-  <button type="button" class="complete-task">Отметить выполненным</button>
-  <button type="button" class="delete-task">Удалить</button>
+<div class="task" [class.completed]="task.isCompleted">
+  @if (isEditing) {
+    <div class="edit-form">
+      <input
+        type="text"
+        [(ngModel)]="editedTask.name"
+        (keyup.enter)="saveEdit()"
+        class="task-name-input"
+      />
+      <textarea
+        [(ngModel)]="editedTask.description"
+        class="task-description-input"
+      ></textarea>
+      <div class="edit-actions">
+        <button type="button" (click)="saveEdit()" class="save-button">Сохранить</button>
+        <button type="button" (click)="cancelEdit()" class="cancel-button">Отмена</button>
+      </div>
+    </div>
+  } @else {
+    <div class="task-content">
+      <div class="task-header">
+        <h4 class="task-name">{{task.name}}</h4>
+        <div class="task-status">
+          @if (task.isCompleted) {
+            <span class="completed-badge">✓ Выполнено</span>
+          }
+        </div>
+      </div>
+      <p class="task-description">{{task.description}}</p>
+      <div class="task-actions">
+        <button
+          type="button"
+          class="complete-task"
+          (click)="toggleComplete()"
+          [class.completed]="task.isCompleted"
+        >
+          {{ task.isCompleted ? 'Вернуть в работу' : 'Отметить выполненным' }}
+        </button>
+        <button type="button" class="edit-task" (click)="startEditing()">✏️ Редактировать</button>
+        <button type="button" class="delete-task" (click)="deleteTask()">🗑️ Удалить</button>
+      </div>
+    </div>
+  }
 </div>

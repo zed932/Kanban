@@ -10,5 +10,11 @@
     "login": "newUser",
     "password": "$2a$10$0AaNu6XlIZ2DsZ41MhIMaubqZNNCXsutDF6biOJwBL2VqyGNqnZhS",
     "id": 2
+  },
+  {
+    "email": "mescheryakovsrg@gmail.com",
+    "login": "Sergey",
+    "password": "$2a$10$sbu3CK/XCEh6RhKZigBW5OixPnknNVlO8E1OOA6ltxMcVMaNZILyK",
+    "id": 3
   }
 ]

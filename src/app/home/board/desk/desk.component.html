@@ -1,11 +1,66 @@
-<div class ="desk-container">
-  <h3>{{name}}</h3>
-  <button type="button" class = "delete-desk">Удалить доску</button>
-  <button type="button" class = "edit-desk">Редактировать доску</button>
-  <button type="button" class="add-task-button">Добавить задачу</button>
-  <div class = "tasks-container">
-    @for (task of tasksList; track task.id) {
-      <task [task]="task"></task>
+<div class="desk-container">
+  <div class="desk-header">
+    @if (isEditing) {
+      <div class="edit-form">
+        <input
+          type="text"
+          [(ngModel)]="editedName"
+          (keyup.enter)="saveEdit()"
+          class="desk-name-input"
+        />
+        <div class="edit-actions">
+          <button type="button" (click)="saveEdit()" class="save-button">Сохранить</button>
+          <button type="button" (click)="cancelEdit()" class="cancel-button">Отмена</button>
+        </div>
+      </div>
+    } @else {
+      <div class="desk-title">
+        <h3>{{desk.name}}</h3>
+        <div class="desk-actions">
+          <button type="button" class="edit-desk" (click)="startEditing()">✏️ Редактировать</button>
+          <button type="button" class="delete-desk" (click)="deleteDesk()">🗑️ Удалить</button>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (isAddingTask) {
+    <div class="add-task-form">
+      <input
+        type="text"
+        [(ngModel)]="newTask.name"
+        placeholder="Название задачи"
+        (keyup.enter)="addTask()"
+        class="task-input"
+      />
+      <textarea
+        [(ngModel)]="newTask.description"
+        placeholder="Описание задачи"
+        class="task-textarea"
+      ></textarea>
+      <div class="form-actions">
+        <button type="button" (click)="addTask()" class="save-button">Добавить</button>
+        <button type="button" (click)="cancelAddingTask()" class="cancel-button">Отмена</button>
+      </div>
+    </div>
+  } @else {
+    <button type="button" class="add-task-button" (click)="startAddingTask()">
+      + Добавить задачу
+    </button>
+  }
+
+  <div class="tasks-container">
+    @for (task of desk.tasksList; track task.id) {
+      <task
+        [task]="task"
+        [deskId]="desk.id"
+        (taskUpdated)="onTaskUpdated($event)"
+        (taskDeleted)="onTaskDeleted($event)"
+      ></task>
+    } @empty {
+      <div class="empty-tasks">
+        <p>Нет задач. Добавьте первую!</p>
+      </div>
     }
   </div>
 </div>
