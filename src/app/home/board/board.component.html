@@ -1,6 +1,25 @@
 <div class="board-container">
+  <!-- Прогресс-бар -->
+  <app-progress-bar
+    [totalTasks]="taskStats.totalTasks"
+    [completedTasks]="taskStats.completedTasks"
+    [deskStats]="taskStats.byDesk"
+  ></app-progress-bar>
+
   <div class="header">
-    <h2>Мои доски</h2>
+    <div class="header-content">
+      <h2>Мои доски</h2>
+      <div class="header-stats">
+        <span class="stat-item">
+          <span class="stat-label">Всего досок:</span>
+          <span class="stat-value">{{ desksList.length }}</span>
+        </span>
+        <span class="stat-item">
+          <span class="stat-label">Задачи:</span>
+          <span class="stat-value">{{ taskStats.completedTasks }}/{{ taskStats.totalTasks }}</span>
+        </span>
+      </div>
+    </div>
     <button type="button" class="create-button" (click)="startCreatingDesk()" title="Добавить доску">
       + Новая доска
     </button>
@@ -23,12 +42,23 @@
   }
 
   <div class="desks-container">
-    @for (desk of desksList; track desk.id) {
-      <desk
-        [desk]="desk"
-        (deskDeleted)="loadDesks()"
-        (deskUpdated)="loadDesks()"
-      ></desk>
+    @if (desksList.length === 0) {
+      <div class="empty-state">
+        <div class="empty-state-icon">📋</div>
+        <h3>Нет созданных досок</h3>
+        <p>Создайте свою первую доску, чтобы начать работу!</p>
+        <button type="button" class="create-first-desk" (click)="startCreatingDesk()">
+          Создать первую доску
+        </button>
+      </div>
+    } @else {
+      @for (desk of desksList; track desk.id) {
+        <desk
+          [desk]="desk"
+          (deskDeleted)="loadDesks()"
+          (deskUpdated)="loadDesks()"
+        ></desk>
+      }
     }
   </div>
 </div>

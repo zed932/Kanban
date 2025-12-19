@@ -77,7 +77,7 @@ export class deskComponent {
         description: this.newTask.description.trim()
       }).subscribe({
         next: (newTask) => {
-          this.desk.tasksList.push(newTask);
+          // State will be updated automatically via BoardService
           this.isAddingTask = false;
           this.newTask = { name: '', description: '' };
         },
@@ -88,18 +88,24 @@ export class deskComponent {
     }
   }
 
+  onTaskUpdated(updatedTask: Task): void {
+    // Обновляем задачу в локальном списке
+    const index = this.desk.tasksList.findIndex(t => t.id === updatedTask.id);
+    if (index !== -1) {
+      this.desk.tasksList[index] = updatedTask;
+    }
+    // Можно также вызвать обновление на сервере через сервис
+    this.deskUpdated.emit();
+  }
+
+  onTaskDeleted(taskId: number): void {
+    // Удаляем задачу из локального списка
+    this.desk.tasksList = this.desk.tasksList.filter(t => t.id !== taskId);
+    this.deskUpdated.emit();
+  }
+
   cancelAddingTask() {
     this.isAddingTask = false;
     this.newTask = { name: '', description: '' };
-  }
-
-  onTaskUpdated(updatedTask: Task) {
-    this.desk.tasksList = this.desk.tasksList.map(task =>
-      task.id === updatedTask.id ? updatedTask : task
-    );
-  }
-
-  onTaskDeleted(taskId: number) {
-    this.desk.tasksList = this.desk.tasksList.filter(task => task.id !== taskId);
   }
 }

@@ -30,7 +30,11 @@ export class TaskComponent {
       isCompleted: !this.task.isCompleted
     }).subscribe({
       next: (updatedTask: Task) => {
+        // Обновляем локальную задачу
+        this.task = updatedTask;
+        // Эмитим событие для родительского компонента
         this.taskUpdated.emit(updatedTask);
+        console.log('Статус задачи изменен');
       },
       error: (error: any) => {
         console.error('Error updating task:', error);
@@ -53,8 +57,11 @@ export class TaskComponent {
         description: this.editedTask.description.trim()
       }).subscribe({
         next: (updatedTask: Task) => {
-          this.isEditing = false;
+          // Обновляем локальную задачу
+          this.task = updatedTask;
+          // Эмитим событие для родительского компонента
           this.taskUpdated.emit(updatedTask);
+          this.isEditing = false;
         },
         error: (error: any) => {
           console.error('Error updating task:', error);
@@ -72,6 +79,7 @@ export class TaskComponent {
     if (confirm('Вы уверены, что хотите удалить эту задачу?')) {
       this.boardService.deleteTask(this.deskId, this.task.id).subscribe({
         next: () => {
+          // Эмитим событие для родительского компонента
           this.taskDeleted.emit(this.task.id);
         },
         error: (error: any) => {
