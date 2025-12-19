@@ -17,12 +17,14 @@ authRouter.post('/signup', async (req, res) => {
     }
 
     // Проверка уникальности
-    if (db.getUserByEmail(email)) {
+    const existingEmail = await db.getUserByEmail(email);
+    if (existingEmail) {
       res.status(409).json({ error: 'Пользователь с таким email уже существует' });
       return;
     }
 
-    if (db.getUserByLogin(login)) {
+    const existingLogin = await db.getUserByLogin(login);
+    if (existingLogin) {
       res.status(409).json({ error: 'Пользователь с таким логином уже существует' });
       return;
     }
@@ -31,7 +33,7 @@ authRouter.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Создание пользователя
-    const user = db.createUser({
+    const user = await db.createUser({
       email,
       login,
       password: hashedPassword
@@ -65,7 +67,7 @@ authRouter.post('/signin', async (req, res) => {
     }
 
     // Поиск пользователя
-    const user = db.getUserByLogin(login);
+    const user = await db.getUserByLogin(login);
     if (!user) {
       res.status(401).json({ error: 'Неверный логин или пароль' });
       return;

@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "name": "FirstDesk",
+    "userId": 1,
+    "tasksList": [
+      {
+        "id": 1,
+        "name": "Купить молоко",
+        "description": "Необходимо купить молока для матушки",
+        "isCompleted": false
+      },
+      {
+        "id": 2,
+        "name": "Сходить в школу",
+        "description": "Сегодня я должен пойти в школу и получить пятерку",
+        "isCompleted": false
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "FirstDesk",
+    "userId": 1,
+    "tasksList": [
+      {
+        "id": 1,
+        "name": "Купить молоко",
+        "description": "Необходимо купить молока для матушки",
+        "isCompleted": false
+      },
+      {
+        "id": 2,
+        "name": "Сходить в школу",
+        "description": "Сегодня я должен пойти в школу и получить пятерку",
+        "isCompleted": false
+      }
+    ]
+  }
+]

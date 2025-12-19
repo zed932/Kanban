@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRouter = require('./routes/auth');
 const desksRouter = require('./routes/desks');
+const tasksRouter = require('./routes/tasks'); // Добавляем импорт
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api/auth', authRouter);
 app.use('/api/desks', desksRouter);
+app.use('/api/tasks', tasksRouter); // Добавляем маршрут задач
 
 // Health check
 app.get('/api/health', (req, res) => {
