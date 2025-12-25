@@ -36,5 +36,18 @@
       }
     ],
     "id": 2
+  },
+  {
+    "name": "Тестовая доска",
+    "userId": 1,
+    "tasksList": [
+      {
+        "name": "База данных работает!",
+        "description": "",
+        "isCompleted": false,
+        "id": 1
+      }
+    ],
+    "id": 3
   }
 ]

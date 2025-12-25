@@ -1,9 +1,8 @@
-<div class="home-container">
-  <div class="header">
-    <span id="app-name">Канбан доска</span>
-    <button type="button" class="header-button" (click)="navigateToBoard()">Главная</button>
-    <button type="button" class="header-button" (click)="navigateToProfile()">Профиль</button>
-    <button type="button" class="header-button" (click)="logout()">Выйти</button>
-  </div>
-  <router-outlet></router-outlet>
-</div>
+<header class="header">
+  <div id="app-name">Канбан Доска</div>
+  <button class="header-button" routerLink="/main" routerLinkActive="active">Главная</button>
+  <button class="header-button" routerLink="/home/board" routerLinkActive="active">Доска</button>
+  <button class="header-button" routerLink="/home/profile" routerLinkActive="active">Профиль</button>
+  <button class="header-button" routerLink="/home/feedback" routerLinkActive="active">Обратная связь</button>
+  <button class="header-button" (click)="logout()">Выйти</button>
+</header>

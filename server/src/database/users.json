@@ -16,5 +16,17 @@
     "login": "Sergey",
     "password": "$2a$10$sbu3CK/XCEh6RhKZigBW5OixPnknNVlO8E1OOA6ltxMcVMaNZILyK",
     "id": 3
+  },
+  {
+    "email": "user@mail.ru",
+    "login": "new_user",
+    "password": "$2a$10$3qXRxOg62BaroRTyANcC6O0/cYKTGoQ3b3CaY7RRSsoC3gEY8YgCW",
+    "id": 4
+  },
+  {
+    "email": "zed@mail.com",
+    "login": "zed",
+    "password": "$2a$10$7h6.2WFwPqVNz.LKUeUrwOEc0HTuenbvBk/ORyII5pimcAv7CkKrq",
+    "id": 5
   }
 ]

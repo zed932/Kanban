@@ -1,23 +1,24 @@
 import { Routes } from '@angular/router';
-import {HomeComponent} from './home/home.component';
-import {SignInComponent} from './signIn/signIn.component';
-import {SignUpComponent} from './signUp/signUp.component';
-import {BoardComponent} from './home/board/board.component';
-import {FeedbackComponent} from './home/profile/feedback-form/feedback.component';
-import {ProfileComponent} from './home/profile/profile.component';
-
-
+import { HomeComponent } from './home/home.component';
+import { SignInComponent } from './signIn/signIn.component';
+import { SignUpComponent } from './signUp/signUp.component';
+import { BoardComponent } from './home/board/board.component';
+import { FeedbackComponent } from './home/profile/feedback-form/feedback.component';
+import { ProfileComponent } from './home/profile/profile.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 export const homeRoutes: Routes = [
-  {path:"board", component: BoardComponent},
-  {path:"profile", component: ProfileComponent},
-  {path: "feedback", component: FeedbackComponent},
-  {path:"**", redirectTo:"board"},
-]
+  { path: "board", component: BoardComponent },
+  { path: "profile", component: ProfileComponent },
+  { path: "feedback", component: FeedbackComponent },
+  { path: "**", redirectTo: "board" },
+];
 
 export const routes: Routes = [
-  {path: "signIn", component: SignInComponent},
-  {path: "signUp", component: SignUpComponent},
-  {path: "home", component: HomeComponent, children: homeRoutes},
-  {path: "**", redirectTo: "signIn"},
+  { path: "", component: MainPageComponent }, // Главная страница по умолчанию
+  { path: "main", component: MainPageComponent }, // Также доступна по /main
+  { path: "signIn", component: SignInComponent },
+  { path: "signUp", component: SignUpComponent },
+  { path: "home", component: HomeComponent, children: homeRoutes },
+  { path: "**", redirectTo: "" }, // Перенаправление на главную вместо входа
 ];
