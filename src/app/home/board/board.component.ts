@@ -5,6 +5,7 @@ import { BoardService } from '../../services/board-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { Auth } from '../../services/auth'; // Добавляем импорт Auth
 
 @Component({
   selector: "app-board",
@@ -15,6 +16,7 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 })
 export class BoardComponent implements OnInit {
   boardService: BoardService = inject(BoardService);
+  private authService = inject(Auth); // Добавляем Auth сервис
   private cdr = inject(ChangeDetectorRef);
 
   isCreatingDesk = false;
@@ -25,36 +27,63 @@ export class BoardComponent implements OnInit {
     return this.boardService.taskStats();
   }
 
-  constructor() {}
+  constructor() {
+    console.log('BoardComponent constructor');
+    console.log('Auth state:', this.authService.isAuthenticated());
+    console.log('User:', this.authService.user());
+  }
 
   ngOnInit() {
+    console.log('BoardComponent ngOnInit');
     this.loadDesks();
   }
 
   loadDesks() {
-    this.boardService.getDesksList().subscribe();
+    console.log('Loading desks...');
+    console.log('Auth token:', this.authService.getToken());
+
+    this.boardService.getDesksList().subscribe({
+      next: (desks) => {
+        console.log('Desks loaded successfully:', desks);
+      },
+      error: (error) => {
+        console.error('Failed to load desks:', error);
+        console.error('Error status:', error.status);
+        console.error('Error message:', error.message);
+      },
+      complete: () => {
+        console.log('Desks loading completed');
+      }
+    });
   }
 
   get desksList() {
-    return this.boardService.desks();
+    const desks = this.boardService.desks();
+    console.log('Current desks in signal:', desks);
+    return desks;
   }
 
   startCreatingDesk() {
+    console.log('Starting desk creation');
     this.isCreatingDesk = true;
     this.newDeskName = '';
   }
 
   createDesk() {
     if (this.newDeskName.trim()) {
+      console.log('Creating desk:', this.newDeskName);
+
       this.boardService.createDesk(this.newDeskName.trim()).subscribe({
-        next: () => {
+        next: (newDesk) => {
+          console.log('Desk created successfully:', newDesk);
           this.isCreatingDesk = false;
           this.newDeskName = '';
-          // Принудительно запускаем обнаружение изменений
           this.cdr.detectChanges();
         },
         error: (error) => {
-          console.error('Error creating desk:', error);
+          console.error('Failed to create desk:', error);
+          console.error('Error status:', error.status);
+          console.error('Error message:', error.message);
         }
       });
     }

@@ -28,5 +28,11 @@
     "login": "zed",
     "password": "$2a$10$7h6.2WFwPqVNz.LKUeUrwOEc0HTuenbvBk/ORyII5pimcAv7CkKrq",
     "id": 5
+  },
+  {
+    "id": 6,
+    "email": "zed@gmail.com",
+    "login": "zed932",
+    "password": "$2a$10$nQlVNW32fbYlMaCgbNJGouUVSPTOR9ODgA70anT8xoFnO0ymyODsq"
   }
 ]

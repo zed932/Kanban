@@ -1,24 +1,27 @@
-import { Injectable, signal, computed, effect } from '@angular/core';
+import { Injectable, signal, computed, effect, inject } from '@angular/core';
 import { Desk } from "../home/board/desk/desk"
 import { Task } from "../home/board/desk/task/task"
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map, tap } from "rxjs/operators";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { map, tap, catchError } from "rxjs/operators";
+import { Auth } from '../services/auth'; // Добавляем импорт Auth
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService {
   private baseUrl = 'http://localhost:3000/api';
+  private http = inject(HttpClient);
+  private authService = inject(Auth); // Добавляем Auth сервис
 
   private desksSignal = signal<Desk[]>([]);
   readonly desks = this.desksSignal.asReadonly();
 
-  // Вычисляемая статистика - автоматически пересчитывается при изменении desksSignal
+  // Вычисляемая статистика
   readonly taskStats = computed(() => {
     const desks = this.desksSignal();
 
-    console.log('Пересчет статистики, количество досок:', desks.length);
+    console.log('Recalculating stats, desks count:', desks.length);
 
     if (desks.length === 0) {
       return {
@@ -47,15 +50,11 @@ export class BoardService {
         completed: deskCompleted,
         percentage: deskTotal > 0 ? Math.round((deskCompleted / deskTotal) * 100) : 0
       });
-
-      console.log(`Доска ${desk.name}: ${deskCompleted}/${deskTotal}`);
     }
 
     const completionPercentage = totalTasks > 0
       ? Math.round((completedTasks / totalTasks) * 100)
       : 0;
-
-    console.log(`Общая статистика: ${completedTasks}/${totalTasks} (${completionPercentage}%)`);
 
     return {
       totalTasks,
@@ -65,79 +64,105 @@ export class BoardService {
     };
   });
 
-  constructor(private http: HttpClient) {
-    // Для отладки: логируем изменения статистики
+  constructor() {
+    console.log('BoardService initialized');
+    console.log('Auth state:', this.authService.isAuthenticated());
+
     effect(() => {
       const stats = this.taskStats();
-      console.log('Статистика обновлена:', stats);
+      console.log('Stats updated:', stats);
     });
   }
 
+  private handleError(error: HttpErrorResponse) {
+    console.error('BoardService error:', error);
+
+    if (error.status === 401) {
+      console.error('Unauthorized - token might be invalid or expired');
+      // Можно добавить автоматический логаут или редирект
+      this.authService.logout();
+    }
+
+    return throwError(() => new Error(error.message || 'Server error'));
+  }
+
   getDesksList(): Observable<Desk[]> {
+    console.log('Fetching desks from:', `${this.baseUrl}/desks`);
+    console.log('Auth token available:', !!this.authService.getToken());
+
     return this.http.get<Desk[]>(`${this.baseUrl}/desks`).pipe(
       map((desksList: Desk[]) => {
-        console.log('Получены доски с сервера:', desksList);
+        console.log('Desks received from server:', desksList);
         this.desksSignal.set(desksList);
         return desksList;
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
   // Методы для досок
   createDesk(name: string): Observable<Desk> {
+    console.log('Creating desk with name:', name);
+
     return this.http.post<Desk>(`${this.baseUrl}/desks`, { name }).pipe(
       tap(newDesk => {
-        console.log('Доска создана:', newDesk);
+        console.log('Desk created successfully:', newDesk);
         this.desksSignal.update(desks => [...desks, newDesk]);
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
   updateDesk(id: number, updates: Partial<Desk>): Observable<Desk> {
     return this.http.put<Desk>(`${this.baseUrl}/desks/${id}`, updates).pipe(
       tap(updatedDesk => {
-        console.log('Доска обновлена:', updatedDesk);
+        console.log('Desk updated:', updatedDesk);
         this.desksSignal.update(desks =>
           desks.map(desk => desk.id === id ? updatedDesk : desk)
         );
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
   deleteDesk(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/desks/${id}`).pipe(
       tap(() => {
-        console.log('Доска удалена:', id);
+        console.log('Desk deleted:', id);
         this.desksSignal.update(desks => desks.filter(desk => desk.id !== id));
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
-  // Методы для задач
+  // Остальные методы остаются без изменений
   addTask(deskId: number, task: { name: string; description: string }): Observable<Task> {
     return this.http.post<Task>(`${this.baseUrl}/tasks/desk/${deskId}`, task).pipe(
       tap(newTask => {
-        console.log('Задача добавлена:', newTask);
+        console.log('Task added:', newTask);
         this.updateDeskWithNewTask(deskId, newTask);
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
   updateTask(deskId: number, taskId: number, updates: Partial<Task>): Observable<Task> {
     return this.http.put<Task>(`${this.baseUrl}/tasks/desk/${deskId}/${taskId}`, updates).pipe(
       tap(updatedTask => {
-        console.log('Задача обновлена:', updatedTask);
+        console.log('Task updated:', updatedTask);
         this.updateDeskWithUpdatedTask(deskId, updatedTask);
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
   deleteTask(deskId: number, taskId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/tasks/desk/${deskId}/${taskId}`).pipe(
       tap(() => {
-        console.log('Задача удалена:', taskId);
+        console.log('Task deleted:', taskId);
         this.updateDeskWithRemovedTask(deskId, taskId);
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
