@@ -1,263 +1,427 @@
+
 /* Контейнер доски */
 .desk-container {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 1.5rem;
-  margin-bottom: 2rem;
+  border-radius: clamp(8px, 1.2vw, 10px);
+  padding: clamp(15px, 2.5vw, 20px);
+  margin-bottom: clamp(20px, 3vw, 30px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.03);
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
 }
 
 .desk-container:hover {
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
-/* Заголовок доски */
-.desk-container h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #2c2c2c;
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid #f0f0f0;
-}
-
-/* Контейнер для кнопок управления доской */
-.desk-container > button {
-  font-family: sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  padding: 0.625rem 1.25rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-right: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-/* Стили для кнопки удаления доски */
-.delete-desk {
-  background-color: #f9f9f9;
-  color: #666666;
-  border: 1px solid #e8e8e8;
-}
-
-.delete-desk:hover {
-  background-color: #f0f0f0;
-  color: #444444;
-  border-color: #d8d8d8;
-}
-
-.delete-desk:active {
-  background-color: #e6e6e6;
-}
-
-/* Стили для кнопки редактирования доски */
-.edit-desk {
-  background-color: #f5f5f5;
-  color: #555555;
-  border: 1px solid #e8e8e8;
-}
-
-.edit-desk:hover {
-  background-color: #e8e8e8;
-  color: #333333;
-  border-color: #d8d8d8;
-}
-
-.edit-desk:active {
-  background-color: #dbdbdb;
-}
-
-/* Стили для кнопки добавления задачи */
-.add-task-button {
-  background-color: #f5f5f5;
-  color: #555555;
-  border: 1px solid #e8e8e8;
-}
-
-.add-task-button:hover {
-  background-color: #e8e8e8;
-  color: #333333;
-  border-color: #d8d8d8;
-}
-
-.add-task-button:active {
-  background-color: #dbdbdb;
-}
-
-/* Контейнер для списка задач */
-.tasks-container {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid #f0f0f0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
-}
-
-/* Стили для компонента задачи внутри контейнера */
-.tasks-container task {
-  display: block;
-}
-
-/* Адаптивность для маленьких экранов */
-@media (max-width: 768px) {
-  .desk-container {
-    padding: 1.25rem;
-  }
-
-  .desk-container > button {
-    display: block;
-    width: 100%;
-    margin-right: 0;
-    margin-bottom: 0.75rem;
-  }
-
-  .desk-container > button:last-child {
-    margin-bottom: 0;
-  }
-
-  .tasks-container {
-    grid-template-columns: 1fr;
-    gap: 0.875rem;
-  }
-}
-
-/* Адаптивность для очень маленьких экранов */
-@media (max-width: 480px) {
-  .desk-container {
-    padding: 1rem;
-    border-radius: 8px;
-  }
-
-  .desk-container h3 {
-    font-size: 1.25rem;
-  }
-
-  .tasks-container {
-    margin-top: 1.25rem;
-    padding-top: 1.25rem;
-  }
-}
-
-.desk-container {
-  background-color: white;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
+/* Шапка доски */
 .desk-header {
-  margin-bottom: 15px;
+  margin-bottom: clamp(15px, 2.5vw, 20px);
 }
 
 .desk-title {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.5vw, 15px);
 }
 
 .desk-title h3 {
   margin: 0;
   color: #333;
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.3;
+  flex: 1;
+  min-width: 150px;
+  word-break: break-word;
 }
 
 .desk-actions {
   display: flex;
-  gap: 10px;
+  gap: clamp(8px, 1.2vw, 10px);
+  flex-wrap: wrap;
 }
 
-.edit-desk, .delete-desk {
+/* Форма редактирования названия */
+.edit-form {
+  background-color: #f8f9fa;
+  padding: clamp(15px, 2.5vw, 20px);
+  border-radius: clamp(6px, 1vw, 8px);
+  border: 1px solid #e9ecef;
+  margin-bottom: clamp(15px, 2.5vw, 20px);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.desk-name-input {
+  width: 100%;
+  padding: clamp(10px, 1.5vw, 12px);
+  border: 2px solid #e9ecef;
+  border-radius: clamp(4px, 0.8vw, 6px);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  margin-bottom: clamp(10px, 1.5vw, 12px);
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.desk-name-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.desk-name-input::placeholder {
+  color: #999;
+  font-size: clamp(0.85rem, 1.1vw, 0.9rem);
+}
+
+.edit-actions {
+  display: flex;
+  gap: clamp(8px, 1.2vw, 10px);
+  justify-content: flex-end;
+}
+
+/* Кнопки редактирования/удаления доски */
+.edit-desk,
+.delete-desk {
   background: none;
   border: 1px solid #ddd;
-  padding: 5px 10px;
-  border-radius: 4px;
+  padding: clamp(6px, 1vw, 8px) clamp(12px, 1.5vw, 16px);
+  border-radius: clamp(4px, 0.8vw, 6px);
   cursor: pointer;
-  font-size: 14px;
+  font-size: clamp(0.8rem, 1.1vw, 0.85rem);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 0.6vw, 6px);
+  min-height: 36px;
+  white-space: nowrap;
+}
+
+.edit-desk {
+  color: #6c757d;
+  border-color: #6c757d;
+  background-color: white;
+}
+
+.edit-desk:hover {
+  background-color: #6c757d;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.2);
 }
 
 .delete-desk {
   color: #dc3545;
   border-color: #dc3545;
+  background-color: white;
 }
 
 .delete-desk:hover {
   background-color: #dc3545;
   color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
 }
 
-.edit-desk:hover {
-  background-color: #f8f9fa;
-}
-
-.edit-form {
-  margin-bottom: 15px;
-}
-
-.desk-name-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.edit-actions {
-  display: flex;
-  gap: 10px;
-}
-
+/* Кнопка добавления задачи */
 .add-task-button {
   width: 100%;
-  padding: 10px;
+  padding: clamp(10px, 1.5vw, 12px);
   background-color: #f8f9fa;
   border: 2px dashed #dee2e6;
-  border-radius: 4px;
+  border-radius: clamp(4px, 0.8vw, 6px);
   cursor: pointer;
   color: #6c757d;
-  margin-bottom: 15px;
-  transition: all 0.3s;
+  margin-bottom: clamp(15px, 2.5vw, 20px);
+  transition: all 0.3s ease;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 500;
+  min-height: 44px;
+  box-sizing: border-box;
 }
 
 .add-task-button:hover {
   background-color: #e9ecef;
   border-color: #adb5bd;
+  border-style: solid;
+  color: #495057;
+  transform: translateY(-1px);
 }
 
+/* Форма добавления задачи */
 .add-task-form {
   background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 4px;
-  margin-bottom: 15px;
+  padding: clamp(15px, 2.5vw, 20px);
+  border-radius: clamp(4px, 0.8vw, 6px);
+  border: 1px solid #e9ecef;
+  margin-bottom: clamp(15px, 2.5vw, 20px);
+  animation: slideDown 0.3s ease;
 }
 
-.task-input, .task-textarea {
+.task-input,
+.task-textarea {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  margin-bottom: 10px;
-  font-size: 14px;
+  padding: clamp(10px, 1.5vw, 12px);
+  border: 2px solid #e9ecef;
+  border-radius: clamp(4px, 0.8vw, 6px);
+  margin-bottom: clamp(10px, 1.5vw, 12px);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.task-input:focus,
+.task-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.task-input::placeholder,
+.task-textarea::placeholder {
+  color: #999;
+  font-size: clamp(0.85rem, 1.1vw, 0.9rem);
 }
 
 .task-textarea {
-  min-height: 60px;
+  min-height: clamp(60px, 8vw, 80px);
   resize: vertical;
+  line-height: 1.4;
 }
 
+/* Общие кнопки формы */
+.save-button,
+.cancel-button {
+  border: none;
+  padding: clamp(8px, 1.2vw, 10px) clamp(15px, 2vw, 20px);
+  border-radius: clamp(4px, 0.8vw, 6px);
+  cursor: pointer;
+  font-weight: 500;
+  font-size: clamp(0.85rem, 1.1vw, 0.9rem);
+  transition: all 0.2s ease;
+  min-height: 36px;
+  min-width: 80px;
+}
+
+.save-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #218838;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.cancel-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(108, 117, 125, 0.2);
+}
+
+/* Контейнер для списка задач */
 .tasks-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  margin-top: clamp(15px, 2.5vw, 20px);
+  padding-top: clamp(15px, 2.5vw, 20px);
+  border-top: 1px solid #f0f0f0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: clamp(12px, 2vw, 15px);
+  box-sizing: border-box;
 }
 
+/* Стили для компонента задачи внутри контейнера */
+.tasks-container task {
+  display: block;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Пустое состояние задач */
 .empty-tasks {
+  grid-column: 1 / -1;
   text-align: center;
-  padding: 20px;
+  padding: clamp(25px, 5vw, 40px) clamp(15px, 3vw, 20px);
   color: #6c757d;
   font-style: italic;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  background-color: #f8f9fa;
+  border-radius: clamp(4px, 0.8vw, 6px);
+  border: 1px dashed #dee2e6;
+}
+
+/* Медиа-запросы для тонкой настройки */
+@media (max-width: 768px) {
+  .desk-title {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .desk-title h3 {
+    text-align: center;
+    margin-bottom: clamp(10px, 1.5vw, 12px);
+  }
+
+  .desk-actions {
+    justify-content: center;
+  }
+
+  .edit-form,
+  .add-task-form {
+    padding: clamp(12px, 2vw, 15px);
+  }
+
+  .edit-actions,
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .save-button,
+  .cancel-button {
+    width: 100%;
+  }
+
+  .tasks-container {
+    grid-template-columns: 1fr;
+    gap: clamp(10px, 1.5vw, 12px);
+  }
+}
+
+@media (max-width: 480px) {
+  .desk-container {
+    padding: clamp(12px, 2vw, 15px);
+    margin-bottom: clamp(15px, 2.5vw, 20px);
+  }
+
+  .desk-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .edit-desk,
+  .delete-desk {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .add-task-button {
+    padding: clamp(8px, 1.5vw, 10px);
+    font-size: clamp(0.85rem, 1.1vw, 0.9rem);
+  }
+
+  .task-input,
+  .task-textarea,
+  .desk-name-input {
+    padding: clamp(8px, 1.5vw, 10px);
+    font-size: clamp(0.85rem, 1.1vw, 0.9rem);
+  }
+
+  .empty-tasks {
+    padding: clamp(20px, 4vw, 30px) clamp(12px, 2vw, 15px);
+  }
+}
+
+@media (max-width: 340px) {
+  .desk-container {
+    padding: 10px;
+    border-radius: 6px;
+  }
+
+  .desk-title h3 {
+    font-size: 1rem;
+  }
+
+  .edit-desk,
+  .delete-desk {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    min-height: 32px;
+  }
+
+  .add-task-button {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .tasks-container {
+    gap: 8px;
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+
+  .empty-tasks {
+    padding: 20px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tasks-container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: clamp(15px, 2vw, 20px);
+  }
+}
+
+/* Улучшение доступности */
+.edit-desk:focus,
+.delete-desk:focus,
+.add-task-button:focus,
+.task-input:focus,
+.task-textarea:focus,
+.desk-name-input:focus,
+.save-button:focus,
+.cancel-button:focus {
+  outline: 2px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 2px;
+}
+
+/* Предотвращение зоума на iOS при фокусе на инпутах */
+@media (max-width: 767px) {
+  .task-input,
+  .task-textarea,
+  .desk-name-input {
+    font-size: 16px;
+  }
+}
+
+/* Плавные анимации для всех интерактивных элементов */
+.edit-desk,
+.delete-desk,
+.add-task-button,
+.save-button,
+.cancel-button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }

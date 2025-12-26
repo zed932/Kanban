@@ -1,273 +1,62 @@
+
 /* Основной контейнер доски */
 .board-container {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 80px); /* Учитываем высоту шапки */
-  padding: 0;
+  min-height: calc(100vh - 80px);
+  padding: clamp(15px, 3vw, 30px);
   background-color: #fafafa;
-}
-
-/* Контейнер для кнопки создания доски */
-.create-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 100;
-}
-
-/* Кнопка создания доски */
-.side-button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #ffffff;
-  color: #555555;
-  font-size: 1.5rem;
-  font-weight: 300;
-  border: 1px solid #e0e0e0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.side-button:hover {
-  background-color: #f8f8f8;
-  color: #333333;
-  border-color: #d0d0d0;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-  transform: scale(1.05);
-}
-
-.side-button:active {
-  background-color: #f0f0f0;
-  transform: scale(0.98);
-}
-
-/* Контейнер для всех досок */
-.desks-container {
-  width: 100%;
-  padding: 2rem;
-  padding-top: 4rem; /* Отступ для кнопки создания доски */
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
   box-sizing: border-box;
-}
-
-/* Стили для компонента доски внутри контейнера */
-.desks-container desk {
-  display: block;
-}
-
-/* Адаптивность для планшетов */
-@media (max-width: 1024px) {
-  .board-container {
-    min-height: calc(100vh - 70px);
-  }
-
-  .desks-container {
-    padding: 1.5rem;
-    padding-top: 3.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-}
-
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-  .board-container {
-    min-height: calc(100vh - 60px);
-  }
-
-  .create-button {
-    position: relative;
-    top: auto;
-    right: auto;
-    display: flex;
-    justify-content: flex-end;
-    padding: 1rem;
-    background-color: #ffffff;
-    border-bottom: 1px solid #f0f0f0;
-    margin-bottom: 1rem;
-  }
-
-  .desks-container {
-    padding: 1rem;
-    padding-top: 0;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-}
-
-/* Адаптивность для очень маленьких экранов */
-@media (max-width: 480px) {
-  .board-container {
-    min-height: calc(100vh - 50px);
-  }
-
-  .desks-container {
-    padding: 0.75rem;
-    gap: 1rem;
-  }
-
-  .side-button {
-    width: 45px;
-    height: 45px;
-    font-size: 1.25rem;
-  }
-}
-
-/* Пустое состояние - когда нет досок */
-.desks-container:empty {
-  padding: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 300px;
-}
-
-.desks-container:empty::after {
-  content: "Нет созданных досок";
-  color: #888888;
-  font-size: 1rem;
-  font-style: italic;
-}
-
-.board-container {
-  padding: 20px;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
+/* Шапка */
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.header h2 {
-  margin: 0;
-  color: #333;
-}
-
-.create-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-.create-button:hover {
-  background-color: #0056b3;
-}
-
-.create-desk-form {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  border: 1px solid #dee2e6;
-}
-
-.desk-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ced4da;
-  border-radius: 4px;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-.form-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.save-button {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.save-button:hover {
-  background-color: #218838;
-}
-
-.cancel-button {
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cancel-button:hover {
-  background-color: #5a6268;
-}
-
-.desks-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
-
-/* Добавим новые стили в существующий файл */
-
-.board-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  min-height: 100vh;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  align-items: flex-start;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: clamp(15px, 2vw, 20px);
+  margin-bottom: clamp(20px, 3vw, 30px);
+  background-color: white;
+  padding: clamp(15px, 2.5vw, 20px);
+  border-radius: clamp(8px, 1.2vw, 10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .header-content {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: clamp(5px, 1vw, 8px);
+  flex: 1;
+  min-width: 200px;
 }
 
 .header-content h2 {
   margin: 0;
   color: #333;
-  font-size: 24px;
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .header-stats {
   display: flex;
-  gap: 20px;
+  gap: clamp(10px, 1.5vw, 15px);
+  flex-wrap: wrap;
+  margin-top: clamp(5px, 1vw, 10px);
 }
 
 .stat-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: clamp(5px, 0.8vw, 8px);
   background-color: #f8f9fa;
-  padding: 5px 10px;
+  padding: clamp(4px, 0.8vw, 6px) clamp(8px, 1.2vw, 12px);
   border-radius: 20px;
-  font-size: 14px;
+  font-size: clamp(0.8rem, 1.1vw, 0.875rem);
+  white-space: nowrap;
 }
 
 .stat-label {
@@ -278,145 +67,142 @@
   color: #333;
   font-weight: 600;
   background-color: white;
-  padding: 2px 8px;
+  padding: clamp(2px, 0.5vw, 3px) clamp(6px, 1vw, 8px);
   border-radius: 12px;
-  min-width: 40px;
+  min-width: clamp(30px, 4vw, 40px);
   text-align: center;
 }
 
+/* Кнопка создания доски */
 .create-button {
-  background-color: #007bff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: clamp(8px, 1.5vw, 12px) clamp(15px, 2.5vw, 24px);
+  border-radius: clamp(6px, 1vw, 8px);
   cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 500;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: clamp(5px, 0.8vw, 8px);
+  white-space: nowrap;
+  min-height: 44px;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
 }
 
 .create-button:hover {
-  background-color: #0056b3;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
+.create-button:active {
+  transform: translateY(0);
+}
+
+/* Форма создания доски */
 .create-desk-form {
   background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  padding: clamp(15px, 2.5vw, 20px);
+  border-radius: clamp(8px, 1.2vw, 10px);
+  margin-bottom: clamp(20px, 3vw, 30px);
   border: 1px solid #dee2e6;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .desk-input {
   width: 100%;
-  padding: 12px;
+  padding: clamp(10px, 1.5vw, 12px);
   border: 2px solid #e9ecef;
-  border-radius: 6px;
-  font-size: 16px;
-  margin-bottom: 15px;
+  border-radius: clamp(4px, 0.8vw, 6px);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  margin-bottom: clamp(12px, 2vw, 15px);
   transition: border-color 0.3s;
+  box-sizing: border-box;
 }
 
 .desk-input:focus {
   outline: none;
-  border-color: #007bff;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.desk-input::placeholder {
+  color: #999;
+  font-size: clamp(0.85rem, 1.1vw, 0.9rem);
 }
 
 .form-actions {
   display: flex;
-  gap: 10px;
+  gap: clamp(8px, 1.5vw, 10px);
+  justify-content: flex-end;
 }
 
 .save-button {
   background-color: #28a745;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: clamp(8px, 1.5vw, 10px) clamp(15px, 2.5vw, 20px);
+  border-radius: clamp(4px, 0.8vw, 6px);
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.3s;
+  font-size: clamp(0.85rem, 1.1vw, 0.9rem);
+  transition: all 0.3s ease;
+  min-height: 40px;
+  min-width: 80px;
 }
 
 .save-button:hover {
   background-color: #218838;
   transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
 }
 
 .cancel-button {
   background-color: #6c757d;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: clamp(8px, 1.5vw, 10px) clamp(15px, 2.5vw, 20px);
+  border-radius: clamp(4px, 0.8vw, 6px);
   cursor: pointer;
   font-weight: 500;
-  transition: all 0.3s;
+  font-size: clamp(0.85rem, 1.1vw, 0.9rem);
+  transition: all 0.3s ease;
+  min-height: 40px;
+  min-width: 80px;
 }
 
 .cancel-button:hover {
   background-color: #5a6268;
   transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.2);
 }
 
+/* Контейнер для всех досок */
 .desks-container {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: clamp(15px, 2.5vw, 20px);
+  box-sizing: border-box;
 }
 
-/* Стили для пустого состояния */
-.empty-state {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 60px 20px;
-  background-color: white;
-  border-radius: 10px;
-  border: 2px dashed #dee2e6;
-}
-
-.empty-state-icon {
-  font-size: 48px;
-  margin-bottom: 20px;
-}
-
-.empty-state h3 {
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.empty-state p {
-  color: #666;
-  margin-bottom: 20px;
-}
-
-.create-first-desk {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
-  transition: all 0.3s;
-}
-
-.create-first-desk:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
-}
-
-/* Анимация для появления новых досок */
-.desks-container > * {
+/* Стили для компонента доски внутри контейнера */
+.desks-container desk {
+  display: block;
   animation: slideIn 0.3s ease;
 }
 
@@ -431,11 +217,70 @@
   }
 }
 
-/* Адаптивность */
+/* Пустое состояние */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: clamp(40px, 8vw, 60px) clamp(20px, 4vw, 30px);
+  background-color: white;
+  border-radius: clamp(8px, 1.2vw, 10px);
+  border: 2px dashed #dee2e6;
+  margin-top: clamp(20px, 3vw, 30px);
+}
+
+.empty-state-icon {
+  font-size: clamp(36px, 6vw, 48px);
+  margin-bottom: clamp(15px, 2.5vw, 20px);
+  display: block;
+}
+
+.empty-state h3 {
+  color: #333;
+  margin-bottom: clamp(8px, 1.5vw, 10px);
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  font-weight: 600;
+}
+
+.empty-state p {
+  color: #666;
+  margin-bottom: clamp(15px, 2.5vw, 20px);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  line-height: 1.5;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.create-first-desk {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: clamp(10px, 1.8vw, 12px) clamp(20px, 3vw, 24px);
+  border-radius: clamp(4px, 0.8vw, 6px);
+  cursor: pointer;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  min-height: 44px;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+.create-first-desk:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Медиа-запросы для тонкой настройки */
 @media (max-width: 768px) {
+  .board-container {
+    padding: clamp(10px, 2vw, 15px);
+    min-height: calc(100vh - 60px);
+  }
+
   .header {
     flex-direction: column;
     align-items: stretch;
+    padding: clamp(12px, 2vw, 15px);
   }
 
   .header-content {
@@ -445,18 +290,145 @@
 
   .header-stats {
     justify-content: center;
-    flex-wrap: wrap;
+    margin-top: clamp(8px, 1.5vw, 10px);
   }
 
   .create-button {
-    align-self: center;
     width: 100%;
-    max-width: 300px;
     justify-content: center;
+    margin-top: clamp(10px, 1.5vw, 15px);
   }
 
   .desks-container {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: clamp(12px, 2vw, 15px);
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .save-button,
+  .cancel-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .board-container {
+    padding: 10px;
+  }
+
+  .header {
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .header-stats {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stat-item {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .create-desk-form {
+    padding: 15px;
+  }
+
+  .desks-container {
+    gap: 10px;
+  }
+
+  .empty-state {
+    padding: 30px 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .board-container {
+    padding: 25px 30px;
+  }
+
+  .desks-container {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .desks-container {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+  }
+}
+
+@media (max-width: 340px) {
+  .board-container {
+    padding: 8px;
+  }
+
+  .header {
+    padding: 10px;
+    border-radius: 6px;
+  }
+
+  .header-content h2 {
+    font-size: 1.1rem;
+  }
+
+  .create-button,
+  .create-first-desk {
+    padding: 10px 15px;
+    font-size: 0.85rem;
+  }
+
+  .desk-input {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  .empty-state {
+    padding: 25px 15px;
+  }
+
+  .empty-state-icon {
+    font-size: 32px;
+  }
+
+  .empty-state h3 {
+    font-size: 1rem;
+  }
+
+  .empty-state p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Улучшение доступности */
+.create-button:focus,
+.save-button:focus,
+.cancel-button:focus,
+.create-first-desk:focus,
+.desk-input:focus {
+  outline: 2px solid rgba(102, 126, 234, 0.5);
+  outline-offset: 2px;
+}
+
+/* Плавная анимация для всех интерактивных элементов */
+.create-button,
+.save-button,
+.cancel-button,
+.create-first-desk {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Предотвращение зоума на iOS при фокусе на инпутах */
+@media (max-width: 767px) {
+  .desk-input {
+    font-size: 16px;
   }
 }
