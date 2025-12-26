@@ -11,14 +11,18 @@ export const homeRoutes: Routes = [
   { path: "board", component: BoardComponent },
   { path: "profile", component: ProfileComponent },
   { path: "feedback", component: FeedbackComponent },
-  { path: "**", redirectTo: "board" },
+  { path: "", redirectTo: "board", pathMatch: "full" }, // Добавлено: редирект с /home на /home/board
 ];
 
 export const routes: Routes = [
-  { path: "", component: MainPageComponent }, // Главная страница по умолчанию
-  { path: "main", component: MainPageComponent }, // Также доступна по /main
+  { path: "", redirectTo: "main", pathMatch: "full" }, // Главная страница по умолчанию
+  { path: "main", component: MainPageComponent },
   { path: "signIn", component: SignInComponent },
   { path: "signUp", component: SignUpComponent },
-  { path: "home", component: HomeComponent, children: homeRoutes },
-  { path: "**", redirectTo: "" }, // Перенаправление на главную вместо входа
+  {
+    path: "home",
+    component: HomeComponent,
+    children: homeRoutes
+  },
+  { path: "**", redirectTo: "main" }, // Перенаправление на главную вместо входа
 ];

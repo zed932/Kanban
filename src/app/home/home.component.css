@@ -1,14 +1,7 @@
-/* Базовые сбросы и настройка страницы */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  font-family: sans-serif;
-}
 
-/* Контейнер на всю страницу */
+/* Контейнер домашней страницы */
 .home-container {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #fafafa;
@@ -18,208 +11,208 @@ html, body {
 .header {
   display: flex;
   align-items: center;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 0 24px;
-  height: 64px;
-  min-height: 64px; /* Гарантирует минимальную высоту */
-  box-sizing: border-box;
-  flex-shrink: 0; /* Предотвращает сжатие в flex-контейнере */
+  justify-content: space-between;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: clamp(12px, 2vw, 15px) clamp(20px, 3vw, 30px);
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.5vw, 15px);
 }
 
-/* Название приложения слева */
+/* Название приложения */
 #app-name {
-  flex-grow: 1;
-  font-size: 20px;
-  font-weight: 600;
-  color: #333333;
-  line-height: 1; /* Убираем лишнюю высоту от line-height */
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
 }
 
-/* Общие стили для кнопок */
+/* Навигация */
+.header-nav {
+  display: flex;
+  gap: clamp(8px, 1.2vw, 10px);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  flex: 1;
+}
+
+/* Кнопки навигации */
 .header-button {
-  background-color: #f5f5f5;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  color: #333333;
-  padding: 8px 16px;
-  margin-left: 12px;
-  font-size: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: clamp(8px, 1.2vw, 10px) clamp(12px, 1.8vw, 16px);
+  border-radius: clamp(4px, 0.8vw, 6px);
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
-  height: 36px; /* Фиксированная высота кнопок */
+  font-size: clamp(0.85rem, 1.1vw, 0.9rem);
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  line-height: 1;
-  white-space: nowrap; /* Предотвращает перенос текста */
-}
-
-/* Эффект при наведении на кнопку */
-.header-button:hover {
-  background-color: #ebebeb;
-  border-color: #c8c8c8;
-}
-
-/* Акцент для кнопки "Главная" */
-.header-button:first-of-type {
-  background-color: #333333;
-  color: #ffffff;
-  border-color: #333333;
-}
-
-.header-button:first-of-type:hover {
-  background-color: #444444;
-}
-
-/* Гарантия, что внутренние элементы не превышают высоту шапки */
-.header > * {
-  max-height: 100%;
-}
-
-/* Адаптивность для мобильных устройств */
-@media (max-width: 768px) {
-  .header {
-    height: auto;
-    min-height: 56px;
-    padding: 0 16px;
-    flex-wrap: wrap; /* Разрешаем перенос кнопок */
-    justify-content: space-between;
-  }
-
-  #app-name {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 8px;
-    font-size: 18px;
-  }
-
-  .header-button {
-    margin-left: 8px;
-    margin-bottom: 8px;
-    height: 32px;
-    font-size: 13px;
-    padding: 6px 12px;
-  }
-
-  /* Убираем отступ у первой кнопки на мобильных */
-  .header-button:first-child {
-    margin-left: 0;
-  }
-}
-
-/* Адаптивность для очень маленьких экранов */
-@media (max-width: 480px) {
-  .header {
-    min-height: 52px;
-    padding: 0 12px;
-  }
-
-  #app-name {
-    font-size: 16px;
-    margin-bottom: 6px;
-  }
-
-  .header-button {
-    font-size: 12px;
-    padding: 5px 10px;
-    height: 30px;
-    margin-left: 6px;
-  }
-}
-
-.home-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.header {
-  background-color: #2c3e50;
-  color: white;
-  padding: 15px 20px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-#app-name {
-  font-size: 24px;
-  font-weight: bold;
-  color: #3498db;
-  margin-right: auto;
-}
-
-.header-button {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s;
+  text-decoration: none;
 }
 
 .header-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .header-button:active {
   transform: translateY(0);
 }
 
-/* Стили для активной кнопки */
+/* Активная кнопка */
 .header-button.active {
-  background-color: #3498db;
-  color: white;
-  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.4);
+  font-weight: 600;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Специальный стиль для кнопки выхода */
-.header-button:last-child {
-  background-color: #e74c3c;
-  margin-left: auto;
+/* Кнопка выхода */
+.logout-button {
+  background: rgba(231, 76, 60, 0.9);
+  border-color: rgba(231, 76, 60, 0.8);
 }
 
-.header-button:last-child:hover {
-  background-color: #c0392b;
+.logout-button:hover {
+  background: rgba(192, 57, 43, 0.9);
 }
 
-/* Контентная область */
-router-outlet {
+/* Основной контент */
+.main-content {
   flex: 1;
-  overflow-y: auto;
+  padding: clamp(20px, 3vw, 30px);
+  background-color: #fafafa;
+  box-sizing: border-box;
+  min-height: calc(100vh - 80px);
 }
 
-/* Адаптивный дизайн */
+/* Медиа-запросы для планшетов */
 @media (max-width: 768px) {
   .header {
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: clamp(10px, 2vw, 12px);
+    gap: 12px;
   }
 
   #app-name {
-    font-size: 20px;
-    width: 100%;
-    margin-bottom: 10px;
     text-align: center;
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+  }
+
+  .header-nav {
+    justify-content: center;
+    gap: clamp(6px, 1vw, 8px);
   }
 
   .header-button {
-    padding: 8px 12px;
-    font-size: 14px;
     flex: 1;
     min-width: 100px;
+    font-size: clamp(0.8rem, 1vw, 0.85rem);
+    padding: clamp(6px, 1vw, 8px) clamp(10px, 1.5vw, 12px);
+  }
+
+  .main-content {
+    padding: clamp(15px, 2.5vw, 20px);
+  }
+}
+
+/* Медиа-запросы для мобильных */
+@media (max-width: 480px) {
+  .header {
+    padding: 10px;
+  }
+
+  .header-nav {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .header-button {
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 0.85rem;
+    padding: 10px;
+    min-height: 38px;
   }
 
   .header-button:last-child {
-    margin-left: 0;
+    margin-bottom: 0;
+  }
+
+  .main-content {
+    padding: 12px;
   }
 }
+
+/* Медиа-запросы для очень маленьких экранов */
+@media (max-width: 340px) {
+  .header {
+    padding: 8px;
+  }
+
+  #app-name {
+    font-size: 1.1rem;
+  }
+
+  .header-button {
+    font-size: 0.8rem;
+    padding: 8px;
+    min-height: 36px;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+}
+
+/* Медиа-запросы для десктопа */
+@media (min-width: 1024px) {
+  .header {
+    padding: 15px 40px;
+  }
+
+  .header-button {
+    font-size: 0.95rem;
+    padding: 10px 20px;
+  }
+
+  .main-content {
+    padding: 30px 40px;
+  }
+}
+
+/* Улучшение доступности */
+.header-button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Плавная анимация для всех интерактивных элементов */
+.header-button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Поддержка prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .header-button {
+    transition: none;
+  }
+
+  .header-button:hover {
+    transform: none;
+  }
+}
+

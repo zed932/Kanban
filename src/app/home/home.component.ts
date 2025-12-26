@@ -1,19 +1,18 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Auth } from '../services/auth';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: "./home.component.html",
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
   authService = inject(Auth);
-
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
   get userName() {
     return this.authService.user()?.login || 'Пользователь';
@@ -27,19 +26,11 @@ export class HomeComponent {
     // Подтверждение выхода
     if (confirm('Вы уверены, что хотите выйти?')) {
       this.authService.logout();
-      this.router.navigate(['signIn']);
+      this.router.navigate(['/signIn']);
     }
   }
 
-  navigateToBoard() {
-    this.router.navigate(['home/board']);
-  }
-
-  navigateToProfile() {
-    this.router.navigate(['home/profile']);
-  }
-
-  // Метод для проверки активной страницы
+  // Метод для проверки активной страницы (если нужен для логики)
   isActive(path: string): boolean {
     return this.router.url.includes(path);
   }

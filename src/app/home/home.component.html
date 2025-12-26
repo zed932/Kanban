@@ -1,10 +1,37 @@
-<header class="header">
-  <div id="app-name">Канбан Доска</div>
-  <button class="header-button" routerLink="/main" routerLinkActive="active">Главная</button>
-  <button class="header-button" routerLink="/home/board" routerLinkActive="active">Доска</button>
-  <button class="header-button" routerLink="/home/profile" routerLinkActive="active">Профиль</button>
-  <button class="header-button" routerLink="/home/feedback" routerLinkActive="active">Обратная связь</button>
-  <button class="header-button" (click)="logout()">Выйти</button>
-</header>
+<div class="home-container">
+  <header class="header">
+    <div id="app-name">Канбан Доска</div>
+    <nav class="header-nav">
+      <button
+        class="header-button"
+        routerLink="/main"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        Главная
+      </button>
+      <button
+        class="header-button"
+        routerLink="/home/board"
+        routerLinkActive="active">
+        Доска
+      </button>
+      <button
+        class="header-button"
+        routerLink="/home/profile"
+        routerLinkActive="active">
+        Профиль
+      </button>
+      <button
+        class="header-button"
+        routerLink="/home/feedback"
+        routerLinkActive="active">
+        Обратная связь
+      </button>
+      <button class="header-button logout-button" (click)="logout()">Выйти</button>
+    </nav>
+  </header>
 
-<router-outlet></router-outlet>
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
